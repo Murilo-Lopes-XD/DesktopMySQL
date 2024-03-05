@@ -62,5 +62,88 @@ namespace DesktopMySQL
                 MessageBox.Show(er.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnLocalizar_Click(object sender, EventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnExcluir.Enabled = true;
+            try
+            {
+                int ID = Convert.ToInt32(txtID.Text.Trim());
+                Pessoa pessoa = new Pessoa();
+                pessoa.Localizar(ID);
+                txtNome.Text = pessoa.Nome;
+                txtIdade.Text = pessoa.Idade;
+                txtCidade.Text = pessoa.Cidade;
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int ID = Convert.ToInt32(txtID.Text.Trim());
+                Pessoa pessoa = new Pessoa();
+                pessoa.Atualizar(ID, txtNome.Text, txtIdade.Text, txtCidade.Text);
+                MessageBox.Show("Pessoa atualizada com sucesso!", "Atualização", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                List<Pessoa> pessoas = pessoa.listapessoa();
+                dgvPessoa.DataSource = pessoas;
+                txtID.Text = "";
+                txtNome.Text = "";
+                txtIdade.Text = "";
+                txtCidade.Text = "";
+                this.txtNome.Focus();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int ID = Convert.ToInt32(txtID.Text.Trim());
+                Pessoa pessoa = new Pessoa();
+                pessoa.Excluir(ID);
+                MessageBox.Show("Pessoa excluída com sucesso!", "Exclusão", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                List<Pessoa> pessoas = pessoa.listapessoa();
+                dgvPessoa.DataSource = pessoas;
+                txtID.Text = "";
+                txtNome.Text = "";
+                txtIdade.Text = "";
+                txtCidade.Text = "";
+                this.txtNome.Focus();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvPessoa_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgvPessoa.Rows[e.RowIndex];
+                this.dgvPessoa.Rows[e.RowIndex].Selected = true;
+                txtID.Text = row.Cells[0].Value.ToString();
+                txtNome.Text = row.Cells[1].Value.ToString();
+                txtIdade.Text = row.Cells[2].Value.ToString();
+                txtCidade.Text = row.Cells[3].Value.ToString();
+            }
+            btnEditar.Enabled = true;
+            btnExcluir.Enabled = true;
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tu és um gatão", "Easter Egg", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
     }
 }

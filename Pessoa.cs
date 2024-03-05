@@ -51,9 +51,9 @@ namespace DesktopMySQL
             con.Close();
         }
 
-        public void Atualizar(Pessoa pessoa)
+        public void Atualizar(int ID, string Nome, string Idade, string Cidade)
         {
-            string sql = "UPDATE pessoa SET Nome= '" + pessoa.Nome + "' , Idade= ' " + pessoa.Idade + " ' , Cidade= '" + pessoa.Cidade + "' WHERE ID= '" + pessoa.ID + "' ";
+            string sql = "UPDATE pessoa SET Nome= '" + Nome + "' , Idade= ' " + Idade + " ' , Cidade= '" + Cidade + "' WHERE ID= '" + ID + "' ";
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();
@@ -63,9 +63,9 @@ namespace DesktopMySQL
             con.Close();
         }
 
-        public void Excluir(Pessoa pessoa)
+        public void Excluir(int ID)
         {
-            string sql = "DELETE FROM pessoa WHERE ID='" + pessoa.ID + "'";
+            string sql = "DELETE FROM pessoa WHERE ID='" + ID + "'";
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();
@@ -75,9 +75,9 @@ namespace DesktopMySQL
             con.Close();
         }
 
-        public void Localizar(Pessoa pessoa)
+        public void Localizar(int ID)
         {
-            string sql = "SELECT * FROM pessoa WHERE ID='" + pessoa.ID + "'";
+            string sql = "SELECT * FROM pessoa WHERE ID='" + ID + "'";
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();
